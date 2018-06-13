@@ -666,6 +666,30 @@ SdReadBlockData(
                 break;
             }
         }
+        
+        if (!(UINT32)Lba) {
+            UINT8* ByteBuffer = (UINT8*)Buffer;
+            UINT32 i;
+            ByteBuffer[446] = 0x00;
+            ByteBuffer[447] = 0x00;
+            ByteBuffer[448] = 0x02;
+            ByteBuffer[449] = 0x00;
+            ByteBuffer[450] = 0xee;
+            ByteBuffer[451] = 0xff;
+            ByteBuffer[452] = 0xff;
+            ByteBuffer[453] = 0xff;
+            ByteBuffer[454] = 0x01;
+            ByteBuffer[455] = 0x00;
+            ByteBuffer[456] = 0x00;
+            ByteBuffer[457] = 0x00;
+            ByteBuffer[458] = 0xff;
+            ByteBuffer[459] = 0xff;
+            ByteBuffer[460] = 0xff;
+            ByteBuffer[461] = 0xff;
+            for (i = 462; i < 510; i++) {
+                ByteBuffer[i] = 0x00;
+            }
+        }
     }
     mFwProtocol->SetLed(FALSE);
 
